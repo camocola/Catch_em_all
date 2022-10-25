@@ -10,48 +10,51 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen 
+{
 	final GameLluviaMenu game;
     private OrthographicCamera camera;
 	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private Arquero tarro;
-	private Lluvia lluvia;
+	private ItemManager lluvia;
 
 	   
 	//boolean activo = true;
 
 	public GameScreen(final GameLluviaMenu game) 
 	{
-		this.game = game;
-        this.batch = game.getBatch();
-        this.font = game.getFont();
-		  // load the images for the droplet and the bucket, 64x64 pixels each 	     
-		  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-		  tarro = new Arquero(new Texture(Gdx.files.internal("bucket.png")),hurtSound);
-         
-	      // load the drop sound effect and the rain background "music" 
-         Texture gota = new Texture(Gdx.files.internal("drop.png"));
-         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
-         
-         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        
-	     Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-         lluvia = new Lluvia(gota, gotaMala, dropSound, rainMusic);
-	      
-	      // camera
-	      camera = new OrthographicCamera();
-	      camera.setToOrtho(false, 800, 480);
-	      batch = new SpriteBatch();
-	      // creacion del tarro
-	      tarro.crear();
-	      
-	      // creacion de la lluvia
-	      lluvia.crear();
+	  this.game = game;
+	  this.batch = game.getBatch();
+ 	  this.font = game.getFont();
+	  // load the images for the droplet and the bucket, 64x64 pixels each 	     
+	  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
+	  tarro = new Arquero(new Texture(Gdx.files.internal("arquero.png")),hurtSound);
+		 
+	  // load the drop sound effect and the rain background "music" 
+	 Texture gota = new Texture(Gdx.files.internal("drop.png"));
+	 Texture ladrillo = new Texture(Gdx.files.internal("ladrillo.png"));
+	 Texture basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
+	 
+	 Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+	
+	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
+	 lluvia = new ItemManager(gota, ladrillo, basquetBall, dropSound, rainMusic);
+	  
+	  // camera
+	  camera = new OrthographicCamera();
+	  camera.setToOrtho(false, 800, 480);
+	  batch = new SpriteBatch();
+	  // creacion del tarro
+	  tarro.crear();
+	  
+	  // creacion de la lluvia
+	  lluvia.crear();
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) 
+	{
 		//limpia la pantalla con color azul obscuro.
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		//actualizar matrices de la cámara
@@ -100,7 +103,8 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void pause() {
+	public void pause() 
+	{
 		lluvia.pausar();
 		game.setScreen(new PausaScreen(game, this)); 
 	}
@@ -111,7 +115,8 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() 
+	{
       tarro.destruir();
       lluvia.destruir();
 

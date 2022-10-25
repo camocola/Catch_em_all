@@ -63,7 +63,6 @@ public class MainMenuScreen implements Screen {
 	public void pause() 
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

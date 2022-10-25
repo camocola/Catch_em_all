@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Arquero 
 {
-   private Rectangle arquero;
+   private Sprite arquero;
    private Texture imagenArquero;
    private Sound sonidoHerido;
    private int vidas = 3;
@@ -26,6 +27,7 @@ public class Arquero
    {
 	   imagenArquero = tex;
 	   sonidoHerido = ss;
+	   arquero = new Sprite(imagenArquero);
    }
    
    
@@ -40,7 +42,7 @@ public class Arquero
 	}
 	public Rectangle getArea() 
 	{
-		return arquero;
+		return arquero.getBoundingRectangle();
 	}
 	public void sumarPuntos(int pp) 
 	{
@@ -51,11 +53,13 @@ public class Arquero
 	
    public void crear() 
    {
-	      arquero = new Rectangle();
-	      arquero.x = 800 / 2 - 64 / 2;
-	      arquero.y = 20;
-	      arquero.width = 64;
-	      arquero.height = 64;
+//      arquero = new Rectangle();
+//      arquero.x = 800 / 2 - 64 / 2;
+//      arquero.y = 20;
+//      arquero.width = 64;
+//      arquero.height = 64;
+      arquero.setCenterX(800 / 2 - 64 / 2);
+      arquero.setY(20);
    }
    
    // Se aturde al arquero.
@@ -72,11 +76,13 @@ public class Arquero
 	 // Si no esta herido
 	 if (!aturdido)  
 	 {
-		 batch.draw(imagenArquero, arquero.x, arquero.y); 
+		 arquero.draw(batch);
 	 }
+	 // Se hace el efecto de 
 	 else 
 	 {
-	   batch.draw(imagenArquero, arquero.x, arquero.y+ MathUtils.random(-5,5));
+	   arquero.setX(arquero.getX()+MathUtils.random(-5,5));
+	   arquero.draw(batch);
 	   tiempoHerido--;
 	   if (tiempoHerido<=0) 
 	   {
@@ -91,21 +97,21 @@ public class Arquero
 	   // Movimiento desde teclado
 	   if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) 
 	   {
-		   arquero.x -= velx * Gdx.graphics.getDeltaTime();
+		   arquero.setX(arquero.getX() - velx * Gdx.graphics.getDeltaTime());
 	   }
 	   if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 	   {
-		   arquero.x += velx * Gdx.graphics.getDeltaTime();
+		   arquero.setX(arquero.getX() + velx * Gdx.graphics.getDeltaTime());
 	   }
 	   
-	   // Que no se salga de los bordes izq y der
-	   if(arquero.x < 0) 
+	   // Verificar que el arquero no salga de los bordes (izquierda/derecha)
+	   if(arquero.getX() < 0) 
 	   {
-		   arquero.x = 0;
+		   arquero.setX(0);
 	   }
-	   if(arquero.x > 800 - 64) 
+	   if(arquero.getX() > 800 - 64) 
 	   {
-		   arquero.x = 800 - 64;
+		   arquero.setX(800 - 64);
 	   }
    }
 	    

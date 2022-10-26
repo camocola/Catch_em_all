@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public class ItemManager implements Colisionable
+public class ItemManager
 {
-	private Array<Rectangle> rainDropsPos;
-	private Array<Integer> rainDropsType;
+	private Array<Colisionable> objectPos;
+	private Array<Integer> objectType;
     private long lastDropTime;
     private Texture soccerBall;
     private Texture basquetBall;
@@ -32,49 +32,51 @@ public class ItemManager implements Colisionable
 	
 	public void crear() 
 	{
-		rainDropsPos = new Array<Rectangle>();
-		rainDropsType = new Array<Integer>();
-		crearGotaDeLluvia();
-	      // start the playback of the background music immediately
-	      stadiumMusic.setLooping(true);
-	      stadiumMusic.setVolume(0.1f);
-	      stadiumMusic.play();
+		objectPos = new Array<Colisionable>();
+		objectType = new Array<Integer>();
+		createObject();
+	  // start the playback of the background music immediately
+	  stadiumMusic.setLooping(true);
+	  stadiumMusic.setVolume(0.1f);
+	  stadiumMusic.play();
 	}
 	
-	private void crearGotaDeLluvia() 
+	private void createObject() 
 	{
-	      Rectangle raindrop = new Rectangle();
-	      raindrop.x = MathUtils.random(0, 800-64);
-	      raindrop.y = 480;
-	      raindrop.width = 64;
-	      raindrop.height = 64;
-	      rainDropsPos.add(raindrop);
+	      Futbol obj = new Futbol(dropSound, soccerBall, 300);
+//		  raindrop.x = MathUtils.random(0, 800-64);
+//		  raindrop.y = 480;
+//		  raindrop.width = 64;
+//		  raindrop.height = 64;
+	      obj.setDimensions(64f, 64f);
+	      objectPos.add(obj);
 	      // Ver el tipo de gota
 	      /* Acá se tienen que generar los diversos tipos de balones
 	       * u objetos que perjudican al jugador, tambien se pueden
 	       * añadir powerups los cuales dan bonificaciones al jugador
 	       */
-	      int r = MathUtils.random(1,10);
+	      int r = MathUtils.random(1,1);
 	      switch(r)
 	      {
 	      	case 1:
 	      	{
-	      		rainDropsType.add(1);
+	      		
+	      		objectType.add(1);
 	      		break;
 	      	}
-	      	case 2:
-	      	{
-	      		rainDropsType.add(2);
-	      		break;
-	      	}
-	      	case 3:
-	      	{
-	      		rainDropsType.add(3);
-	      		break;
-	      	}
+//	      	case 2:
+//	      	{
+//	      		objectType.add(2);
+//	      		break;
+//	      	}
+//	      	case 3:
+//	      	{
+//	      		objectType.add(3);
+//	      		break;
+//	      	}
 	      	default:
 	      	{
-	      		rainDropsType.add(2);
+	      		objectType.add(1);
 	      		break;
 	      	}
 	      }
@@ -87,27 +89,28 @@ public class ItemManager implements Colisionable
 	   // Generar gotas de lluvia 
 	   if(TimeUtils.nanoTime() - lastDropTime > 100000000)  
 	   {
-		   crearGotaDeLluvia();
+		   createObject();
 	   }
 	  
 	   /* Recorremos todas las gotas que se han generado y se revisa si estas
 	    * Fueron atrapadas o cayeron al suelo.
 	    */
-	   for (int i=0; i < rainDropsPos.size; i++ ) 
+	   for (int i=0; i < objectPos.size; i++ ) 
 	   {
-		  Rectangle raindrop = rainDropsPos.get(i);
-	      raindrop.y -= 300 * Gdx.graphics.getDeltaTime();
+		  Futbol obj = (Futbol)objectPos.get(i);
+	      obj.move();
 	      /*Si cae al suelo se elimina la gota.
 	       *Acá habría que revisar si la pelota que cayó al suelo es de futbol.
 	       */
-	      if(raindrop.y + 64 < 0) 
+	      if(obj.outOfBounds() == true) 
 	      {
-	    	  rainDropsPos.removeIndex(i); 
-	    	  rainDropsType.removeIndex(i);
+	    	  objectPos.removeIndex(i); 
+	    	  objectType.removeIndex(i);
 	      }
-	      if (verColision(raindrop, goalkeeper, i) == false)
+	      if(obj.verColision(goalkeeper) == true)
 	      {
-	    	  return false;
+	    	  objectPos.removeIndex(i); 
+	    	  objectType.removeIndex(i);
 	      }
 	   } 
 	  return true; 
@@ -119,23 +122,10 @@ public class ItemManager implements Colisionable
 	   * generado, para poder dibujarlo con su imagen correspondiente
 	   * 
 	   */
-	  for (int i=0; i < rainDropsPos.size; i++ ) 
+	  for (int i=0; i < objectPos.size; i++ ) 
 	  {
-		  Rectangle raindrop = rainDropsPos.get(i);
-		  // gota dañina
-		  if(rainDropsType.get(i)==1)
-		  {
-	         batch.draw(ladrillo, raindrop.x, raindrop.y); 
-		  }
-		  // Balon de futbol
-		  else if (rainDropsType.get(i)==2)
-		  {
-			 batch.draw(soccerBall, raindrop.x, raindrop.y); 
-		  }
-		  else
-		  {
-			  batch.draw(basquetBall, raindrop.x, raindrop.y); 
-		  }
+		  Futbol obj = (Futbol)objectPos.get(i);
+		  obj.drawImage(batch);
 	   }
    }
    
@@ -153,39 +143,6 @@ public class ItemManager implements Colisionable
    {
 	  stadiumMusic.play();
    }
-
-	@Override
-	public boolean verColision(Rectangle obj, Arquero goalkeeper, int i) 
-	{
-	  // La gota choca con el tarro
-      // Overlaps (sobrepone a la gota) chocan
-      if(obj.overlaps(goalkeeper.getArea())) 
-      {
-    	// Si es un petardo/
-    	if(rainDropsType.get(i)==1) 
-    	{ 
-    		goalkeeper.dañar();
-    	  
-    	  if (goalkeeper.getVidas()<=0) 
-    	  { 
-    		  return false;
-    	  }
-    	  rainDropsPos.removeIndex(i);
-          rainDropsType.removeIndex(i);
-      	}
-    	/*Se suman los puntos correspondientes, ya que no era un objeto dañino.
-    	 *Era un balon de futbol/basquet/
-    	 */
-    	else 
-    	{ 
-    		goalkeeper.sumarPuntos(10);
-          dropSound.play();
-          rainDropsPos.removeIndex(i);
-          rainDropsType.removeIndex(i);
-      	}
-      }
-      return true;
-	}
 	// TODO Auto-generated method stub
 	
 

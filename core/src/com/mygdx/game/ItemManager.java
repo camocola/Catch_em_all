@@ -1,12 +1,10 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -32,9 +30,9 @@ public class ItemManager
 	
 	public void crear() 
 	{
-		objectPos = new Array<Colisionable>();
-		objectType = new Array<Integer>();
-		createObject();
+	  objectPos = new Array<Colisionable>();
+	  objectType = new Array<Integer>();
+	  createObject();
 	  // start the playback of the background music immediately
 	  stadiumMusic.setLooping(true);
 	  stadiumMusic.setVolume(0.1f);
@@ -43,7 +41,7 @@ public class ItemManager
 	
 	private void createObject() 
 	{
-	      Futbol obj = new Futbol(dropSound, soccerBall, 300);
+	      Futbol obj = new Futbol(dropSound, soccerBall, 200);
 //		  raindrop.x = MathUtils.random(0, 800-64);
 //		  raindrop.y = 480;
 //		  raindrop.width = 64;
@@ -83,7 +81,11 @@ public class ItemManager
 	      
 	      lastDropTime = TimeUtils.nanoTime();
 	   }
-	
+	public void deleteObj(int i)
+	{
+		objectPos.removeIndex(i); 
+  	  	objectType.removeIndex(i);
+	}
    public boolean actualizarMovimiento(Arquero goalkeeper) 
    { 
 	   // Generar gotas de lluvia 
@@ -104,13 +106,11 @@ public class ItemManager
 	       */
 	      if(obj.outOfBounds() == true) 
 	      {
-	    	  objectPos.removeIndex(i); 
-	    	  objectType.removeIndex(i);
+	    	  deleteObj(i);
 	      }
 	      if(obj.verColision(goalkeeper) == true)
 	      {
-	    	  objectPos.removeIndex(i); 
-	    	  objectType.removeIndex(i);
+	    	  deleteObj(i);
 	      }
 	   } 
 	  return true; 

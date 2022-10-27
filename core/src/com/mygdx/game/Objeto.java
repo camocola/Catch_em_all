@@ -39,7 +39,7 @@ public abstract class Objeto implements Colisionable
 		/*Se dibuja el item en una posicion aleatoria a lo largo del eje x
 		 * en el eje y se deja constante en 480 que es el tope de la ventana
 		 */
-		batch.draw(image, MathUtils.random(0,800-64), 480);
+		batch.draw(image, r.x, r.y);
 	}
 	
 	public void setDimensions(float w, float h)

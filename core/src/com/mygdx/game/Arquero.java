@@ -128,7 +128,7 @@ public class Arquero
 		imagenArquero.dispose();
 	}
 	
-   public boolean estaHerido() 
+   public boolean estaAturdido() 
    {
 	   return aturdido;
    }

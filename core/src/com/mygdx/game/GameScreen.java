@@ -39,10 +39,10 @@ public class GameScreen implements Screen
 	 fondo = new Texture(Gdx.files.internal("stadium monumental 2.png"));
 
 	 
-	 Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+	 Sound bonk = Gdx.audio.newSound(Gdx.files.internal("bonk.ogg"));
 	
 	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-	 manager = new ItemManager(gota, bengala, basquetBall, tenis, bolos, dropSound, rainMusic);
+	 manager = new ItemManager(gota, bengala, basquetBall, tenis, bolos, bonk, rainMusic);
 	  
 	  batch = new SpriteBatch();
 	  camera = new OrthographicCamera();
@@ -61,20 +61,22 @@ public class GameScreen implements Screen
 		drawHeader();
 		
 		// Mientras el arquero no este herido el jugador puede moverse.
-		if (!gk.estaHerido()) 
+		if (!gk.estaAturdido()) 
 		{
-	        gk.actualizarMovimiento();    
-	        
-			// Si el arquero no posee mas vidas. 
-	       if (!manager.updateMovement(gk)) 
-	       {
-	    	  gameOver();
-	       }
+	        gk.actualizarMovimiento(); 
 		}
+		
+		// Si el arquero no posee mas vidas. 
+		if (!manager.updateMovement(gk)) 
+        {
+    	   gameOver();
+        }
 		
 		gk.dibujar(batch);
 		manager.updateDraw(batch);
 		batch.end();
+		
+		
 	}
 	
 	// Dibuja el encabezado de puntos, vidas y highScore.

@@ -58,11 +58,6 @@ public class Arquero
 	
    public void crear() 
    {
-//      arquero = new Rectangle();
-//      arquero.x = 800 / 2 - 64 / 2;
-//      arquero.y = 20;
-//      arquero.width = 64;
-//      arquero.height = 64;
       arquero.setCenterX(800 / 2 - 64 / 2);
       arquero.setY(20);
    }

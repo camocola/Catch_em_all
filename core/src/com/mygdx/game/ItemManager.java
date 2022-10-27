@@ -17,14 +17,22 @@ public class ItemManager
     private Texture bengala;
     private Texture tenis;
     private Texture bolos;
-    private Sound dropSound;
+    private Sound bonk;
+    private Sound BBsound;
+    private Sound FWsound;
+    private Sound Tsound;
+    private Sound Fsound;
     private Music stadiumMusic;
 	   
     // Constructor
-	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Texture tenis, Texture bolos, Sound ss, Music mm) 
+	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Texture tenis, Texture bolos, Sound bonk, Sound BBsound, Sound FWsound, Sound Tsound, Sound Fsound, Music mm) 
 	{
 		stadiumMusic = mm;
-		dropSound = ss;
+		this.bonk = bonk;
+		this.BBsound = BBsound;
+		this.FWsound = FWsound;
+		this.Tsound = Tsound;
+		this.Fsound = Fsound;
 		this.soccerBall = soccerBall;
 		this.basquetBall = basquetBall;
 		this.bengala = bengala;
@@ -49,33 +57,33 @@ public class ItemManager
 	      {
 	      	case 1:
 	      	{
-	      		Futbol obj = new Futbol(dropSound, soccerBall, 200);
+	      		Futbol obj = new Futbol(Fsound, soccerBall, 200);
 	      		obj.setDimensions(60f, 60f);
 	      		objectPos.add(obj);
 	      		break;
 	      	}
 	      	case 2:
 	      	{
-		      	Bengala obj = new Bengala(dropSound, bengala, 200, 200);
+		      	Bengala obj = new Bengala(FWsound, bengala, 200, 200);
 	      		obj.setDimensions(30f, 30f);
 	      		objectPos.add(obj);
 	      		break;
 	      	}
 	      	case 3:
 	      	{
-	      		Basquetbol obj = new Basquetbol(dropSound, basquetBall, 200);
+	      		Basquetbol obj = new Basquetbol(BBsound, basquetBall, 200);
 	      		obj.setDimensions(70f, 70f);
 	      		objectPos.add(obj);
 	      	}
 	      	case 4:
 	      	{
-	      		Tenis obj = new Tenis(dropSound, tenis, 200);
+	      		Tenis obj = new Tenis(Tsound, tenis, 200);
 	      		obj.setDimensions(40f, 40f);
 	      		objectPos.add(obj);
 	      	}
 	      	case 5:
 	      	{
-	      		Bolos obj = new Bolos(dropSound, bolos, 400);
+	      		Bolos obj = new Bolos(bonk, bolos, 400);
 	      		obj.setDimensions(80f, 80f);
 	      		objectPos.add(obj);
 	      	}
@@ -131,7 +139,7 @@ public class ItemManager
    // Si se le acabaron las vidas al jugador.
    public void destruir() 
    {
-      dropSound.dispose();
+      bonk.dispose();
       stadiumMusic.dispose();
    }
    public void pausar() 

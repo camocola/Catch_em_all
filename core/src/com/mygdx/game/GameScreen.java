@@ -40,9 +40,13 @@ public class GameScreen implements Screen
 
 	 
 	 Sound bonk = Gdx.audio.newSound(Gdx.files.internal("bonk.ogg"));
+	 Sound basketball = Gdx.audio.newSound(Gdx.files.internal("basketball.ogg"));
+	 Sound fireWork = Gdx.audio.newSound(Gdx.files.internal("fuegoArtificial.wav"));
+	 Sound Tsound = Gdx.audio.newSound(Gdx.files.internal("tenis.wav"));
+	 Sound Fsound = Gdx.audio.newSound(Gdx.files.internal("futbol.wav"));
 	
 	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-	 manager = new ItemManager(gota, bengala, basquetBall, tenis, bolos, bonk, rainMusic);
+	 manager = new ItemManager(gota, bengala, basquetBall, tenis, bolos, bonk, basketball, fireWork, Tsound, Fsound, rainMusic);
 	  
 	  batch = new SpriteBatch();
 	  camera = new OrthographicCamera();

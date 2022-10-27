@@ -116,17 +116,8 @@ public class ItemManager
    { 
 	  for (int i=0; i < objectPos.size; i++ ) 
 	  {
-		  // Se verifica el tipo de objeto
-		  if (objectType.get(i) == 1)
-		  {
-			  Futbol obj = (Futbol)objectPos.get(i);
-			  obj.drawImage(batch);
-		  }
-		  else
-		  {
-			  Bengala obj = (Bengala)objectPos.get(i);
-			  obj.drawImage(batch);
-		  }
+		  Colisionable obj = objectPos.get(i);
+		  obj.drawImage(batch);
 	   }
    }
    

@@ -23,5 +23,4 @@ public abstract class Proyectiles extends Objeto
 		r.y -= velY * Gdx.graphics.getDeltaTime();
 		r.x -= velX * Gdx.graphics.getDeltaTime();
 	}
-	
 }

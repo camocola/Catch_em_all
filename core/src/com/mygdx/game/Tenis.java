@@ -11,7 +11,7 @@ public abstract class Tenis extends Balon
 	}
 	
 	@Override
-	public boolean verColision(Arquero gk) 
+	public boolean onColision(Arquero gk) 
 	{
 		Rectangle r = getR();
 		

@@ -13,9 +13,14 @@ public class Futbol extends Balon
 	}
 
 	@Override
-	public boolean verColision(Arquero gk) 
+	public boolean onColision(Arquero gk) 
 	{
 		Rectangle r = getR();
+		move();
+		if (isGoal(gk) == true)
+		{
+			return true;
+		}
 		
 		//Si colisionaron se reproduce el sonido y se aumentan los puntos 
 		if (r.overlaps(gk.getArea()) == true)
@@ -24,7 +29,6 @@ public class Futbol extends Balon
 			playSound();
 			return true;
 		}
-		
 		return false;
 	}
 
@@ -36,11 +40,13 @@ public class Futbol extends Balon
 	}
 	
 	//Si la pelota sale del área de visión se le quita una vida al arquero
-	public void isGoal (Arquero gk)
+	public boolean isGoal (Arquero gk)
 	{
 		if (outOfBounds() == true)
 		{
 			gk.dañar();
+			return true;
 		}
+		return false;
 	}
 }

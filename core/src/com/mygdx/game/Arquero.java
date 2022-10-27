@@ -78,7 +78,7 @@ public class Arquero
 	 {
 		 arquero.draw(batch);
 	 }
-	 // Se hace el efecto de 
+	 // Se hace el efecto de wiggle
 	 else 
 	 {
 	   arquero.setX(arquero.getX()+MathUtils.random(-5,5));
@@ -91,7 +91,18 @@ public class Arquero
 	 }
    } 
    
-   
+   // Verificar que el arquero no salga de los bordes (izquierda/derecha)
+   public void outOfBounds()
+   {
+	   if(arquero.getX() < 0) 
+	   {
+		   arquero.setX(0);
+	   }
+	   if(arquero.getX() > 800 - 64) 
+	   {
+		   arquero.setX(800 - 64);
+	   }
+   }
    public void actualizarMovimiento() 
    { 
 	   // Movimiento desde teclado
@@ -104,15 +115,7 @@ public class Arquero
 		   arquero.setX(arquero.getX() + velx * Gdx.graphics.getDeltaTime());
 	   }
 	   
-	   // Verificar que el arquero no salga de los bordes (izquierda/derecha)
-	   if(arquero.getX() < 0) 
-	   {
-		   arquero.setX(0);
-	   }
-	   if(arquero.getX() > 800 - 64) 
-	   {
-		   arquero.setX(800 - 64);
-	   }
+	   outOfBounds();
    }
 	    
 

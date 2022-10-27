@@ -17,6 +17,7 @@ public class Futbol extends Balon
 	{
 		Rectangle r = getR();
 		move();
+		
 		if (isGoal(gk) == true)
 		{
 			return true;

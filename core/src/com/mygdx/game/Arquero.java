@@ -49,6 +49,11 @@ public class Arquero
 		puntos+=pp;
 	}
 	
+	public void restarPuntos(int pp) 
+	{
+		puntos-=pp;
+	}
+	
 	
 	
    public void crear() 

@@ -63,12 +63,16 @@ public class Arquero
    }
    
    // Se aturde al arquero.
-   public void dañar() 
+   public void aturdir() 
    {
-	  vidas--;
 	  aturdido = true;
 	  tiempoHerido = tiempoHeridoMax;
 	  sonidoHerido.play();
+   }
+   
+   public void dañar()
+   {
+	   vidas--;
    }
    
    public void dibujar(SpriteBatch batch) 

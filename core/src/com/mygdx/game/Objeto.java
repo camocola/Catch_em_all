@@ -53,7 +53,9 @@ public abstract class Objeto implements Colisionable
 	
 	public Rectangle getR()
 	{
+		
 		return r;
+		
 	}
 	
 }

@@ -19,7 +19,7 @@ public class ItemManager
     private Sound dropSound;
     private Music stadiumMusic;
 	   
-	public ItemManager(Texture gotaBuena, Texture ladrillo, Texture basquetBall, Sound ss, Music mm) 
+	public ItemManager(Texture gotaBuena, Texture ladrillo, Texture basquetBall, Sound ss, Music mm, Texture fondo) 
 	{
 		stadiumMusic = mm;
 		dropSound = ss;

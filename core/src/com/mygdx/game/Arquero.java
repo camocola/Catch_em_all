@@ -14,7 +14,7 @@ public class Arquero
 {
    private Sprite arquero;
    private Texture imagenArquero;
-   private Sound sonidoHerido;
+   private Sound abucheo;
    private int vidas = 3;
    private int puntos = 0;
    private int velx = 400;
@@ -26,7 +26,7 @@ public class Arquero
    public Arquero(Texture tex, Sound ss) 
    {
 	   imagenArquero = tex;
-	   sonidoHerido = ss;
+	   abucheo = ss;
 	   arquero = new Sprite(imagenArquero);
    }
    
@@ -54,8 +54,6 @@ public class Arquero
 		puntos-=pp;
 	}
 	
-	
-	
    public void crear() 
    {
       arquero.setCenterX(800 / 2 - 64 / 2);
@@ -67,11 +65,11 @@ public class Arquero
    {
 	  aturdido = true;
 	  tiempoHerido = tiempoHeridoMax;
-	  sonidoHerido.play();
    }
    
    public void dañar()
    {
+	   abucheo.play();
 	   vidas--;
    }
    

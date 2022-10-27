@@ -20,11 +20,11 @@ public class ItemManager
     private Music stadiumMusic;
 	   
     // Constructor
-	public ItemManager(Texture gotaBuena, Texture bengala, Texture basquetBall, Sound ss, Music mm) 
+	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Sound ss, Music mm) 
 	{
 		stadiumMusic = mm;
 		dropSound = ss;
-		this.soccerBall = gotaBuena;
+		this.soccerBall = soccerBall;
 		this.basquetBall = basquetBall;
 		this.bengala = bengala;
 	}
@@ -144,7 +144,4 @@ public class ItemManager
    {
 	  stadiumMusic.play();
    }
-	// TODO Auto-generated method stub
-	
-
 }

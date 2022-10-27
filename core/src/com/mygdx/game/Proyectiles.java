@@ -23,4 +23,12 @@ public abstract class Proyectiles extends Objeto
 		r.y -= velY * Gdx.graphics.getDeltaTime();
 		r.x -= velX * Gdx.graphics.getDeltaTime();
 	}
+	
+	public void updateDirection(Rectangle r) 
+	{
+		if (r.x > 800 - 64 || r.x < 0)
+		{
+			velX *= -1;
+		}
+	}
 }

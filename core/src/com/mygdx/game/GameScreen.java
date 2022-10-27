@@ -18,6 +18,7 @@ public class GameScreen implements Screen
 	private BitmapFont font;
 	private Arquero tarro;
 	private ItemManager lluvia;
+	private Texture fondo;
 
 	   
 	//boolean activo = true;
@@ -33,13 +34,15 @@ public class GameScreen implements Screen
 		 
 	  // load the drop sound effect and the rain background "music" 
 	 Texture gota = new Texture(Gdx.files.internal("drop.png"));
-	 Texture ladrillo = new Texture(Gdx.files.internal("ladrillo.png"));
+	 Texture bengala = new Texture(Gdx.files.internal("bengala.png"));
 	 Texture basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
+	 fondo = new Texture(Gdx.files.internal("stadium monumental 2.png"));
+
 	 
 	 Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	
 	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-	 lluvia = new ItemManager(gota, ladrillo, basquetBall, dropSound, rainMusic);
+	 lluvia = new ItemManager(gota, bengala, basquetBall, dropSound, rainMusic);
 	  
 	  // camera
 	  camera = new OrthographicCamera();
@@ -66,12 +69,14 @@ public class GameScreen implements Screen
 		font.draw(batch, "Gotas totales: " + tarro.getPuntos(), 5, 475);
 		font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);
 		font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth/2-50, 475);
+		//Texture fondo = new Texture(Gdx.files.internal("solari.png"));
+		batch.draw(fondo, 0, 0);
 		
 		if (!tarro.estaHerido()) {
 			// movimiento del tarro desde teclado
 	        tarro.actualizarMovimiento();        
 			// caida de la lluvia 
-	       if (!lluvia.actualizarMovimiento(tarro)) {
+	       if (!lluvia.updateMovement(tarro)) {
 	    	  //actualizar HigherScore
 	    	  if (game.getHigherScore()<tarro.getPuntos())
 	    		  game.setHigherScore(tarro.getPuntos());  
@@ -82,7 +87,7 @@ public class GameScreen implements Screen
 		}
 		
 		tarro.dibujar(batch);
-		lluvia.actualizarDibujoLluvia(batch);
+		lluvia.updateDraw(batch);
 		
 		batch.end();
 	}

@@ -16,21 +16,19 @@ public class GameScreen implements Screen
     private OrthographicCamera camera;
 	private SpriteBatch batch;	   
 	private BitmapFont font;
-	private Arquero tarro;
-	private ItemManager lluvia;
+	private Arquero gk;
+	private ItemManager manager;
 	private Texture fondo;
 
-	   
-	//boolean activo = true;
 
 	public GameScreen(final GameLluviaMenu game) 
 	{
 	  this.game = game;
 	  this.batch = game.getBatch();
- 	  this.font = game.getFont();
+	  this.font = game.getFont();
 	  // load the images for the droplet and the bucket, 64x64 pixels each 	     
 	  Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-	  tarro = new Arquero(new Texture(Gdx.files.internal("arquero.png")),hurtSound);
+	  gk = new Arquero(new Texture(Gdx.files.internal("arquero.png")),hurtSound);
 		 
 	  // load the drop sound effect and the rain background "music" 
 	 Texture gota = new Texture(Gdx.files.internal("drop.png"));
@@ -42,54 +40,74 @@ public class GameScreen implements Screen
 	 Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	
 	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-	 lluvia = new ItemManager(gota, bengala, basquetBall, dropSound, rainMusic);
+	 manager = new ItemManager(gota, bengala, basquetBall, dropSound, rainMusic);
 	  
-	  // camera
+	  batch = new SpriteBatch();
 	  camera = new OrthographicCamera();
 	  camera.setToOrtho(false, 800, 480);
-	  batch = new SpriteBatch();
 	  // creacion del tarro
-	  tarro.crear();
+	  gk.crear();
 	  
 	  // creacion de la lluvia
-	  lluvia.crear();
+	  manager.crear();
 	}
 
 	@Override
 	public void render(float delta) 
 	{
+		updateCamera();
+		drawHeader();
+		
+		// Mientras el arquero no este herido el jugador puede moverse.
+		if (!gk.estaHerido()) 
+		{
+	        gk.actualizarMovimiento();    
+	        
+			// Si el arquero no posee mas vidas. 
+	       if (!manager.updateMovement(gk)) 
+	       {
+	    	  gameOver();
+	       }
+		}
+		
+		gk.dibujar(batch);
+		manager.updateDraw(batch);
+		batch.end();
+	}
+	
+	// Dibuja el encabezado de puntos, vidas y highScore.
+	public void drawHeader()
+	{
+		batch.draw(fondo, 0, 0);
+		font.draw(batch, "Puntos totales: " + gk.getPuntos(), 5, 475);
+		font.draw(batch, "Vidas : " + gk.getVidas(), 670, 475);
+		font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth/2-50, 475);
+	}
+	
+	// Actualiza la camara
+	public void updateCamera()
+	{
 		//limpia la pantalla con color azul obscuro.
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		//actualizar matrices de la cámara
 		camera.update();
-		//actualizar 
+		// Actualizar 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		//dibujar textos
-		font.draw(batch, "Gotas totales: " + tarro.getPuntos(), 5, 475);
-		font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);
-		font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth/2-50, 475);
-		//Texture fondo = new Texture(Gdx.files.internal("solari.png"));
-		batch.draw(fondo, 0, 0);
-		
-		if (!tarro.estaHerido()) {
-			// movimiento del tarro desde teclado
-	        tarro.actualizarMovimiento();        
-			// caida de la lluvia 
-	       if (!lluvia.updateMovement(tarro)) {
-	    	  //actualizar HigherScore
-	    	  if (game.getHigherScore()<tarro.getPuntos())
-	    		  game.setHigherScore(tarro.getPuntos());  
-	    	  //ir a la ventana de finde juego y destruir la actual
-	    	  game.setScreen(new GameOverScreen(game));
-	    	  dispose();
-	       }
-		}
-		
-		tarro.dibujar(batch);
-		lluvia.updateDraw(batch);
-		
-		batch.end();
+	}
+	
+	// Manda al jugador a pantalla de GameOver.
+	public void gameOver()
+	{
+		//Si su puntuación es la mayor se actualiza el HigherScore.
+  	    if (game.getHigherScore() < gk.getPuntos())
+  	    {
+  	    	game.setHigherScore(gk.getPuntos());  
+  	    }
+  	  
+  	    // Nos vamos a la pantalla de fin de juego y se cierra la actual.
+  	    game.setScreen(new GameOverScreen(game));
+  	    dispose();
 	}
 
 	@Override
@@ -97,20 +115,22 @@ public class GameScreen implements Screen
 	}
 
 	@Override
-	public void show() {
-	  // continuar con sonido de lluvia
-	  lluvia.continuar();
+	// Continuar con la musica del estadio.
+	public void show() 
+	{
+	  manager.continuar();
 	}
 
 	@Override
-	public void hide() {
-
+	public void hide() 
+	{
 	}
 
 	@Override
+	// Pausa el juego.
 	public void pause() 
 	{
-		lluvia.pausar();
+		manager.pausar();
 		game.setScreen(new PausaScreen(game, this)); 
 	}
 
@@ -122,9 +142,8 @@ public class GameScreen implements Screen
 	@Override
 	public void dispose() 
 	{
-      tarro.destruir();
-      lluvia.destruir();
-
+      gk.destruir();
+      manager.destruir();
 	}
 
 }

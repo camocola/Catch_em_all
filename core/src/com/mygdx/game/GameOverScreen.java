@@ -29,9 +29,9 @@ public class GameOverScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "GAME OVER ", 100, 100);
+		font.draw(batch, "GAME OVER ", 100, 300);
 		font.draw(batch, "Presione Enter para jugar de nuevo.", 100, 200);
-		font.draw(batch, "Presione Escape para salir para jugar de nuevo.", 100, 300);
+		font.draw(batch, "Presione Escape para salir.", 100, 100);
 		batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) 

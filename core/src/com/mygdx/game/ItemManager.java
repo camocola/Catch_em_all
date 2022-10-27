@@ -15,25 +15,26 @@ public class ItemManager
     private long lastDropTime;
     private Texture soccerBall;
     private Texture basquetBall;
-    private Texture ladrillo;
+    private Texture bengala;
     private Sound dropSound;
     private Music stadiumMusic;
 	   
-	public ItemManager(Texture gotaBuena, Texture ladrillo, Texture basquetBall, Sound ss, Music mm) 
+    // Constructor
+	public ItemManager(Texture gotaBuena, Texture bengala, Texture basquetBall, Sound ss, Music mm) 
 	{
 		stadiumMusic = mm;
 		dropSound = ss;
 		this.soccerBall = gotaBuena;
 		this.basquetBall = basquetBall;
-		this.ladrillo = ladrillo;
+		this.bengala = bengala;
 	}
 	
+	// Se inicializan los arreglos y musicas
 	public void crear() 
 	{
 	  objectPos = new Array<Colisionable>();
 	  objectType = new Array<Integer>();
 	  createObject();
-	  // start the playback of the background music immediately
 	  stadiumMusic.setLooping(true);
 	  stadiumMusic.setVolume(0.1f);
 	  stadiumMusic.play();
@@ -41,91 +42,91 @@ public class ItemManager
 	
 	private void createObject() 
 	{
-	      Futbol obj = new Futbol(dropSound, soccerBall, 200);
-//		  raindrop.x = MathUtils.random(0, 800-64);
-//		  raindrop.y = 480;
-//		  raindrop.width = 64;
-//		  raindrop.height = 64;
-	      obj.setDimensions(64f, 64f);
-	      objectPos.add(obj);
 	      // Ver el tipo de gota
 	      /* Acá se tienen que generar los diversos tipos de balones
 	       * u objetos que perjudican al jugador, tambien se pueden
 	       * añadir powerups los cuales dan bonificaciones al jugador
 	       */
-	      int r = MathUtils.random(1,1);
+	      int r = MathUtils.random(1,2);
 	      switch(r)
 	      {
 	      	case 1:
 	      	{
-	      		
+	      		Futbol obj = new Futbol(dropSound, soccerBall, 200);
+	      		obj.setDimensions(64f, 64f);
+	      		objectPos.add(obj);
 	      		objectType.add(1);
 	      		break;
 	      	}
-//	      	case 2:
-//	      	{
-//	      		objectType.add(2);
-//	      		break;
-//	      	}
+	      	case 2:
+	      	{
+		      	Bengala obj = new Bengala(dropSound, bengala, 200, 200);
+	      		obj.setDimensions(64f, 64f);
+	      		objectPos.add(obj);
+	      		objectType.add(2);
+	      		break;
+	      	}
 //	      	case 3:
 //	      	{
 //	      		objectType.add(3);
 //	      		break;
 //	      	}
-	      	default:
-	      	{
-	      		objectType.add(1);
-	      		break;
-	      	}
 	      }
 	      
 	      lastDropTime = TimeUtils.nanoTime();
 	   }
+	
+	// Elimina los objetos del arreglo.
 	public void deleteObj(int i)
 	{
 		objectPos.removeIndex(i); 
-  	  	objectType.removeIndex(i);
+	  	objectType.removeIndex(i);
 	}
-   public boolean actualizarMovimiento(Arquero goalkeeper) 
+	
+   // Se actualiza el movimiento del arquero
+   public boolean updateMovement(Arquero gk) 
    { 
-	   // Generar gotas de lluvia 
+	   // Se generan objetos.
 	   if(TimeUtils.nanoTime() - lastDropTime > 100000000)  
 	   {
 		   createObject();
 	   }
 	  
-	   /* Recorremos todas las gotas que se han generado y se revisa si estas
-	    * Fueron atrapadas o cayeron al suelo.
-	    */
+	   // Recorremos el arreglo de colisionables.
 	   for (int i=0; i < objectPos.size; i++ ) 
 	   {
-		  Futbol obj = (Futbol)objectPos.get(i);
-	      obj.move();
-	      /*Si cae al suelo se elimina la gota.
-	       *Acá habría que revisar si la pelota que cayó al suelo es de futbol.
-	       */
-	      if(obj.outOfBounds() == true) 
-	      {
-	    	  deleteObj(i);
-	      }
-	      if(obj.verColision(goalkeeper) == true)
-	      {
-	    	  deleteObj(i);
-	      }
+		   Colisionable obj = objectPos.get(i);
+		   // Se verifica si el arquero colisono con algún objeto.
+		   if (obj.onColision(gk) == true)
+		   {
+			   deleteObj(i);
+		   }	
+		   
+		   // Se verifica que el arquero siga vivo.
+		   if (gk.getVidas() == 0)
+		   {
+			   return false;
+		   }
 	   } 
 	  return true; 
    }
    
-   public void actualizarDibujoLluvia(SpriteBatch batch) 
+   // Se actualiza el dibujo de los objetos.
+   public void updateDraw(SpriteBatch batch) 
    { 
-	  /* En esta sección hay que revisar de que tipo es el objeto
-	   * generado, para poder dibujarlo con su imagen correspondiente
-	   * 
-	   */
 	  for (int i=0; i < objectPos.size; i++ ) 
 	  {
-		  Futbol obj = (Futbol)objectPos.get(i);
-		  obj.drawImage(batch);
+		  // Se verifica el tipo de objeto
+		  if (objectType.get(i) == 1)
+		  {
+			  Futbol obj = (Futbol)objectPos.get(i);
+			  obj.drawImage(batch);
+		  }
+		  else
+		  {
+			  Bengala obj = (Bengala)objectPos.get(i);
+			  obj.drawImage(batch);
+		  }
 	   }
    }
    

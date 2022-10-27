@@ -8,7 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 
-public class PausaScreen implements Screen {
+public class PausaScreen implements Screen 
+{
 
 	private final GameLluviaMenu game;
 	private GameScreen juego;
@@ -16,7 +17,8 @@ public class PausaScreen implements Screen {
 	private BitmapFont font;
 	private OrthographicCamera camera;
 
-	public PausaScreen (final GameLluviaMenu game, GameScreen juego) {
+	public PausaScreen (final GameLluviaMenu game, GameScreen juego) 
+	{
 		this.game = game;
         this.juego = juego;
         this.batch = game.getBatch();
@@ -26,7 +28,8 @@ public class PausaScreen implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) 
+	{
 		ScreenUtils.clear(0, 0, 1.0f, 0.5f);
 
 		camera.update();
@@ -37,7 +40,8 @@ public class PausaScreen implements Screen {
 		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 100);
 		batch.end();
 
-		if (Gdx.input.isTouched()) {
+		if (Gdx.input.isTouched()) 
+		{
 			game.setScreen(juego);
 			dispose();
 		}

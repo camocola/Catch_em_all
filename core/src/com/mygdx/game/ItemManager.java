@@ -16,11 +16,12 @@ public class ItemManager
     private Texture basquetBall;
     private Texture bengala;
     private Texture tenis;
+    private Texture bolos;
     private Sound dropSound;
     private Music stadiumMusic;
 	   
     // Constructor
-	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Texture tenis, Sound ss, Music mm) 
+	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Texture tenis, Texture bolos, Sound ss, Music mm) 
 	{
 		stadiumMusic = mm;
 		dropSound = ss;
@@ -28,6 +29,7 @@ public class ItemManager
 		this.basquetBall = basquetBall;
 		this.bengala = bengala;
 		this.tenis = tenis;
+		this.bolos = bolos;
 	}
 	
 	// Se inicializan los arreglos y musicas
@@ -71,6 +73,12 @@ public class ItemManager
 	      		obj.setDimensions(40f, 40f);
 	      		objectPos.add(obj);
 	      	}
+	      	case 5:
+	      	{
+	      		Bolos obj = new Bolos(dropSound, bolos, 400);
+	      		obj.setDimensions(80f, 80f);
+	      		objectPos.add(obj);
+	      	}
 	      }
 	      
 	      lastDropTime = TimeUtils.nanoTime();
@@ -86,7 +94,7 @@ public class ItemManager
    public boolean updateMovement(Arquero gk) 
    { 
 	   // Se generan objetos.
-	   if(TimeUtils.nanoTime() - lastDropTime > 100000000)  
+	   if(TimeUtils.nanoTime() - lastDropTime > 1000000000)  
 	   {
 		   createObject();
 	   }

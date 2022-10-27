@@ -11,29 +11,29 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class ItemManager
 {
 	private Array<Colisionable> objectPos;
-	private Array<Integer> objectType;
     private long lastDropTime;
     private Texture soccerBall;
     private Texture basquetBall;
     private Texture bengala;
+    private Texture tenis;
     private Sound dropSound;
     private Music stadiumMusic;
 	   
     // Constructor
-	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Sound ss, Music mm) 
+	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Texture tenis, Sound ss, Music mm) 
 	{
 		stadiumMusic = mm;
 		dropSound = ss;
 		this.soccerBall = soccerBall;
 		this.basquetBall = basquetBall;
 		this.bengala = bengala;
+		this.tenis = tenis;
 	}
 	
 	// Se inicializan los arreglos y musicas
 	public void crear() 
 	{
 	  objectPos = new Array<Colisionable>();
-	  objectType = new Array<Integer>();
 	  createObject();
 	  stadiumMusic.setLooping(true);
 	  stadiumMusic.setVolume(0.1f);
@@ -42,35 +42,35 @@ public class ItemManager
 	
 	private void createObject() 
 	{
-	      // Ver el tipo de gota
-	      /* Acá se tienen que generar los diversos tipos de balones
-	       * u objetos que perjudican al jugador, tambien se pueden
-	       * añadir powerups los cuales dan bonificaciones al jugador
-	       */
-	      int r = MathUtils.random(1,2);
+	      int r = MathUtils.random(1,3);
 	      switch(r)
 	      {
 	      	case 1:
 	      	{
 	      		Futbol obj = new Futbol(dropSound, soccerBall, 200);
-	      		obj.setDimensions(64f, 64f);
+	      		obj.setDimensions(60f, 60f);
 	      		objectPos.add(obj);
-	      		objectType.add(1);
 	      		break;
 	      	}
 	      	case 2:
 	      	{
 		      	Bengala obj = new Bengala(dropSound, bengala, 200, 200);
-	      		obj.setDimensions(64f, 64f);
+	      		obj.setDimensions(30f, 30f);
 	      		objectPos.add(obj);
-	      		objectType.add(2);
 	      		break;
 	      	}
-//	      	case 3:
-//	      	{
-//	      		objectType.add(3);
-//	      		break;
-//	      	}
+	      	case 3:
+	      	{
+	      		Basquetbol obj = new Basquetbol(dropSound, basquetBall, 200);
+	      		obj.setDimensions(70f, 70f);
+	      		objectPos.add(obj);
+	      	}
+	      	case 4:
+	      	{
+	      		Tenis obj = new Tenis(dropSound, tenis, 200);
+	      		obj.setDimensions(40f, 40f);
+	      		objectPos.add(obj);
+	      	}
 	      }
 	      
 	      lastDropTime = TimeUtils.nanoTime();
@@ -80,7 +80,6 @@ public class ItemManager
 	public void deleteObj(int i)
 	{
 		objectPos.removeIndex(i); 
-	  	objectType.removeIndex(i);
 	}
 	
    // Se actualiza el movimiento del arquero

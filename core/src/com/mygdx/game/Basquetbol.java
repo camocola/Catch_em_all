@@ -15,7 +15,11 @@ public class Basquetbol extends Balon {
 	public boolean onColision(Arquero gk) 
 	{
 		Rectangle r = getR();
-		
+		move();
+		if (outOfBounds() == true)
+		{
+			return true;
+		}
 		//Si colisionaron se reproduce el sonido y se aumentan los puntos 
 		if (r.overlaps(gk.getArea()) == true)
 		{

@@ -34,13 +34,14 @@ public class GameScreen implements Screen
 	 Texture gota = new Texture(Gdx.files.internal("drop.png"));
 	 Texture bengala = new Texture(Gdx.files.internal("bengala.png"));
 	 Texture basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
+	 Texture tenis = new Texture(Gdx.files.internal("tenis.png"));
 	 fondo = new Texture(Gdx.files.internal("stadium monumental 2.png"));
 
 	 
 	 Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	
 	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-	 manager = new ItemManager(gota, bengala, basquetBall, dropSound, rainMusic);
+	 manager = new ItemManager(gota, bengala, basquetBall, tenis, dropSound, rainMusic);
 	  
 	  batch = new SpriteBatch();
 	  camera = new OrthographicCamera();

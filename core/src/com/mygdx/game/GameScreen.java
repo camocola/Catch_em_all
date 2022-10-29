@@ -29,24 +29,8 @@ public class GameScreen implements Screen
 	  // load the images for the droplet and the bucket, 64x64 pixels each 	     
 	  Sound abucheo = Gdx.audio.newSound(Gdx.files.internal("abucheo.wav"));
 	  gk = new Arquero(new Texture(Gdx.files.internal("arquero.png")),abucheo);
-		 
-	  // load the drop sound effect and the rain background "music" 
-	 Texture gota = new Texture(Gdx.files.internal("drop.png"));
-	 Texture bengala = new Texture(Gdx.files.internal("bengala.png"));
-	 Texture basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
-	 Texture tenis = new Texture(Gdx.files.internal("tenis.png"));
-	 Texture bolos = new Texture(Gdx.files.internal("bolos.png"));
 	 fondo = new Texture(Gdx.files.internal("stadium monumental 2.png"));
-
-	 
-	 Sound bonk = Gdx.audio.newSound(Gdx.files.internal("bonk.ogg"));
-	 Sound basketball = Gdx.audio.newSound(Gdx.files.internal("basketball.ogg"));
-	 Sound fireWork = Gdx.audio.newSound(Gdx.files.internal("fuegoArtificial.wav"));
-	 Sound Tsound = Gdx.audio.newSound(Gdx.files.internal("tenis.wav"));
-	 Sound Fsound = Gdx.audio.newSound(Gdx.files.internal("futbol.wav"));
-	
-	 Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-	 manager = new ItemManager(gota, bengala, basquetBall, tenis, bolos, bonk, basketball, fireWork, Tsound, Fsound, rainMusic);
+	 manager = new ItemManager();
 	  
 	  batch = new SpriteBatch();
 	  camera = new OrthographicCamera();
@@ -79,8 +63,6 @@ public class GameScreen implements Screen
 		gk.dibujar(batch);
 		manager.updateDraw(batch);
 		batch.end();
-		
-		
 	}
 	
 	// Dibuja el encabezado de puntos, vidas y highScore.

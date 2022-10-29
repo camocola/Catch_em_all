@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,20 +25,20 @@ public class ItemManager
     private Sound Fsound;
     private Music stadiumMusic;
 	   
-    // Constructor
-	public ItemManager(Texture soccerBall, Texture bengala, Texture basquetBall, Texture tenis, Texture bolos, Sound bonk, Sound BBsound, Sound FWsound, Sound Tsound, Sound Fsound, Music mm) 
+    // Se cargan todas las texturas y sonidos de los objetos.
+	public ItemManager() 
 	{
-		stadiumMusic = mm;
-		this.bonk = bonk;
-		this.BBsound = BBsound;
-		this.FWsound = FWsound;
-		this.Tsound = Tsound;
-		this.Fsound = Fsound;
-		this.soccerBall = soccerBall;
-		this.basquetBall = basquetBall;
-		this.bengala = bengala;
-		this.tenis = tenis;
-		this.bolos = bolos;
+		stadiumMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
+		this.bonk = Gdx.audio.newSound(Gdx.files.internal("bonk.ogg"));
+		this.BBsound = Gdx.audio.newSound(Gdx.files.internal("basketball.ogg"));
+		this.FWsound = Gdx.audio.newSound(Gdx.files.internal("fuegoArtificial.wav"));
+		this.Tsound = Gdx.audio.newSound(Gdx.files.internal("tenis.wav"));
+		this.Fsound = Gdx.audio.newSound(Gdx.files.internal("futbol.wav"));;
+		this.soccerBall = new Texture(Gdx.files.internal("drop.png"));
+		this.basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
+		this.bengala = new Texture(Gdx.files.internal("bengala.png"));
+		this.tenis = new Texture(Gdx.files.internal("tenis.png"));
+		this.bolos = new Texture(Gdx.files.internal("bolos.png"));
 	}
 	
 	// Se inicializan los arreglos y musicas
@@ -50,9 +51,10 @@ public class ItemManager
 	  stadiumMusic.play();
 	}
 	
+	// Crea distintos tipos de objetos de manera aleatoria
 	private void createObject() 
 	{
-	      int r = MathUtils.random(1,3);
+	      int r = MathUtils.random(1,5);
 	      switch(r)
 	      {
 	      	case 1:
@@ -90,7 +92,7 @@ public class ItemManager
 	      }
 	      
 	      lastDropTime = TimeUtils.nanoTime();
-	   }
+	}
 	
 	// Elimina los objetos del arreglo.
 	public void deleteObj(int i)
@@ -101,8 +103,8 @@ public class ItemManager
    // Se actualiza el movimiento del arquero
    public boolean updateMovement(Arquero gk) 
    { 
-	   // Se generan objetos.
-	   if(TimeUtils.nanoTime() - lastDropTime > 1000000000)  
+	   // Se generan 1 objeto cada 0.5 segundos.
+	   if(TimeUtils.nanoTime() - lastDropTime > 500000000)  
 	   {
 		   createObject();
 	   }
@@ -111,11 +113,23 @@ public class ItemManager
 	   for (int i=0; i < objectPos.size; i++ ) 
 	   {
 		   Colisionable obj = objectPos.get(i);
-		   // Se verifica si el arquero colisono con algún objeto.
-		   if (obj.onColision(gk) == true)
+		   // Se mueve el objeto
+		   obj.move();
+		   
+		   /* Se verifica si el arquero colisono con algún objeto.
+		    * de chocar llama a oncolision y se elimina el objeto.
+		    */
+		   if (obj.checkColision(gk) == true)
 		   {
+			   obj.onColision(gk);
 			   deleteObj(i);
 		   }	
+		   
+		   // Si el objeto salio del area visible se elimina
+		   if (obj.outOfBounds() == true)
+		   {
+			   deleteObj(i);
+		   }
 		   
 		   // Se verifica que el arquero siga vivo.
 		   if (gk.getVidas() == 0)
@@ -131,7 +145,11 @@ public class ItemManager
    { 
 	  for (int i=0; i < objectPos.size; i++ ) 
 	  {
-		  Colisionable obj = objectPos.get(i);
+		  /*
+		   * Se utiliza el metodo drawImage de la clase abstracta para
+		   * dibujar las imagenes de los objetos.
+		   */
+		  Objeto obj = (Objeto)objectPos.get(i);
 		  obj.drawImage(batch);
 	   }
    }

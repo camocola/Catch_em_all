@@ -11,22 +11,10 @@ public class Tenis extends Balon
 	}
 	
 	@Override
-	public boolean onColision(Arquero gk) 
+	public void onColision(Arquero gk) 
 	{
-		Rectangle r = getR();
-		move();
-		if (outOfBounds() == true)
-		{
-			return true;
-		}
-		//Si colisionaron se reproduce el sonido y se aumentan los puntos 
-		if (r.overlaps(gk.getArea()) == true)
-		{
-			effect(gk);
-			playSound();
-			return true;
-		}
-		return false;
+		effect(gk);
+		playSound();
 	}
 
 	@Override

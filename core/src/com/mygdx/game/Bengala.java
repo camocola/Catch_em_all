@@ -14,23 +14,9 @@ public class Bengala extends Proyectiles
 
 	@Override
 	// 
-	public boolean onColision(Arquero gk) 
+	public void onColision(Arquero gk) 
 	{
-		Rectangle r = getR();
-		updateDirection(r);
-		move();
-		
-		if (outOfBounds() == true)
-		{
-			return true;
-		}
-		//Si colisionaron se reproduce el sonido y se aumentan los puntos 
-		if (r.overlaps(gk.getArea()) == true)
-		{
-			effect(gk);
-			return true;
-		}
-		return false;
+		effect(gk);
 	}
 
 	@Override

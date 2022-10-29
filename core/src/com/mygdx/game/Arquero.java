@@ -67,15 +67,17 @@ public class Arquero
 	  tiempoHerido = tiempoHeridoMax;
    }
    
+   // Se reproduce sonido de abucheo y se le resta una vida.
    public void dañar()
    {
 	   abucheo.play();
 	   vidas--;
    }
    
+   // Dibuja al arquero.
    public void dibujar(SpriteBatch batch) 
    {
-	 // Si no esta herido
+	 // Si no esta aturdido
 	 if (!aturdido)  
 	 {
 		 arquero.draw(batch);
@@ -105,6 +107,7 @@ public class Arquero
 		   arquero.setX(800 - 64);
 	   }
    }
+   
    public void actualizarMovimiento() 
    { 
 	   // Movimiento desde teclado

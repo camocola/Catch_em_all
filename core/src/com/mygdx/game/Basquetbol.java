@@ -12,30 +12,15 @@ public class Basquetbol extends Balon {
 	}
 
 	@Override
-	public boolean onColision(Arquero gk) 
+	public void onColision(Arquero gk) 
 	{
-		Rectangle r = getR();
-		move();
-		if (outOfBounds() == true)
-		{
-			return true;
-		}
-		//Si colisionaron se reproduce el sonido y se aumentan los puntos 
-		if (r.overlaps(gk.getArea()) == true)
-		{
-			effect(gk);
-			playSound();
-			return true;
-		}
-		return false;
+		effect(gk);
+		playSound();
 	}
-
 	@Override
-	//Si el arquero atrapa la pelota suma 10 puntos
+	// Si el arquero atrapa la pelota suma 10 puntos
 	public void effect(Arquero gk) 
 	{
 		gk.sumarPuntos(5);
 	}
-		
-
 }

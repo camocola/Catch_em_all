@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Balon extends Objeto
 {
-
 	private int velY;
 	
 	public Balon(Sound s, Texture i, int vY) 

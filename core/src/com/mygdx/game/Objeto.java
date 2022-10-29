@@ -18,7 +18,8 @@ public abstract class Objeto implements Colisionable
 		image = i;
 	}
 	
-	boolean outOfBounds()
+	@Override
+	public boolean outOfBounds()
 	{
 		if (r.y + 64 < 0)
 		{
@@ -42,6 +43,15 @@ public abstract class Objeto implements Colisionable
 		batch.draw(image, r.x, r.y);
 	}
 	
+	public boolean checkColision(Arquero gk)
+	{
+		if (r.overlaps(gk.getArea()) == true)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public void setDimensions(float w, float h)
 	{
 		r = new Rectangle();
@@ -53,9 +63,7 @@ public abstract class Objeto implements Colisionable
 	
 	public Rectangle getR()
 	{
-		
 		return r;
-		
 	}
 	
 }

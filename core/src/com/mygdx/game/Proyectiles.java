@@ -17,13 +17,16 @@ public abstract class Proyectiles extends Objeto
 		velY = vY;
 	}
 	
+	// Mueve a los proyectiles a lo largo del eje x e y
 	public void move()
 	{
 		Rectangle r = getR();
 		r.y -= velY * Gdx.graphics.getDeltaTime();
 		r.x -= velX * Gdx.graphics.getDeltaTime();
+		updateDirection(r);
 	}
 	
+	// Si el proyectil se sale del area visible se cambia su direccion.
 	public void updateDirection(Rectangle r) 
 	{
 		if (r.x > 800 - 64 || r.x < 0)

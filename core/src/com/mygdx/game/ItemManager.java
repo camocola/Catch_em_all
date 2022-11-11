@@ -13,32 +13,16 @@ public class ItemManager
 {
 	private Array<Colisionable> objectPos;
     private long lastDropTime;
-    private Texture soccerBall;
-    private Texture basquetBall;
     private Texture bengala;
-    private Texture tenis;
-    private Texture bolos;
-    private Sound bonk;
-    private Sound BBsound;
     private Sound FWsound;
-    private Sound Tsound;
-    private Sound Fsound;
     private Music stadiumMusic;
 	   
     // Se cargan todas las texturas y sonidos de los objetos.
 	public ItemManager() 
 	{
 		stadiumMusic = Gdx.audio.newMusic(Gdx.files.internal("colo colo.wav"));
-		this.bonk = Gdx.audio.newSound(Gdx.files.internal("bonk.ogg"));
-		this.BBsound = Gdx.audio.newSound(Gdx.files.internal("basketball.ogg"));
-		this.FWsound = Gdx.audio.newSound(Gdx.files.internal("fuegoArtificial.wav"));
-		this.Tsound = Gdx.audio.newSound(Gdx.files.internal("tenis.wav"));
-		this.Fsound = Gdx.audio.newSound(Gdx.files.internal("futbol.wav"));;
-		this.soccerBall = new Texture(Gdx.files.internal("drop.png"));
-		this.basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
 		this.bengala = new Texture(Gdx.files.internal("bengala.png"));
-		this.tenis = new Texture(Gdx.files.internal("tenis.png"));
-		this.bolos = new Texture(Gdx.files.internal("bolos.png"));
+		this.FWsound = Gdx.audio.newSound(Gdx.files.internal("fuegoArtificial.wav"));
 	}
 	
 	// Se inicializan los arreglos y musicas
@@ -55,13 +39,12 @@ public class ItemManager
 	private void createObject() 
 	{
 	      int r = MathUtils.random(1,5);
+	      BallFactory f = BallFactory.getFactory();
 	      switch(r)
 	      {
 	      	case 1:
 	      	{
-	      		Futbol obj = new Futbol(Fsound, soccerBall, 200);
-	      		obj.setDimensions(60f, 60f);
-	      		objectPos.add(obj);
+	      		objectPos.add(f.createSoccer());
 	      		break;
 	      	}
 	      	case 2:
@@ -73,21 +56,18 @@ public class ItemManager
 	      	}
 	      	case 3:
 	      	{
-	      		Basquetbol obj = new Basquetbol(BBsound, basquetBall, 200);
-	      		obj.setDimensions(70f, 70f);
-	      		objectPos.add(obj);
+	      		objectPos.add(f.createBasquet());
+	      		break;
 	      	}
 	      	case 4:
 	      	{
-	      		Tenis obj = new Tenis(Tsound, tenis, 200);
-	      		obj.setDimensions(40f, 40f);
-	      		objectPos.add(obj);
+	      		objectPos.add(f.createTenis());
+	      		break;
 	      	}
 	      	case 5:
 	      	{
-	      		Bolos obj = new Bolos(bonk, bolos, 400);
-	      		obj.setDimensions(80f, 80f);
-	      		objectPos.add(obj);
+	      		objectPos.add(f.createBowl());
+	      		break;
 	      	}
 	      }
 	      
@@ -157,7 +137,6 @@ public class ItemManager
    // Si se le acabaron las vidas al jugador.
    public void destruir() 
    {
-      bonk.dispose();
       stadiumMusic.dispose();
    }
    public void pausar() 

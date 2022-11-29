@@ -9,6 +9,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import Objetos.Arquero;
+import Objetos.Bengala;
+import Objetos.Colisionable;
+import Objetos.Objeto;
+
 public class ItemManager
 {
 	private Array<Colisionable> objectPos;
@@ -102,6 +107,7 @@ public class ItemManager
 		   if (obj.checkColision(gk) == true)
 		   {
 			   obj.onColision(gk);
+			   obj.effect(gk);
 			   deleteObj(i);
 		   }	
 		   

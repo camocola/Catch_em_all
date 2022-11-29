@@ -24,6 +24,7 @@ public class Bengala extends Proyectiles
 	public void points(Arquero gk) 
 	{
 		playSound();
+		effect(gk);
 		gk.restarPuntos(25);
 	}
 

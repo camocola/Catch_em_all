@@ -21,8 +21,8 @@ public class Arquero
    private boolean aturdido = false;
    private boolean buffed = false;
    private boolean debuffed = false;
-   private int tiempoAturdidoMax = 50;
-   private int tiempoAturdido;
+   private int tiempoEfectoMax = 50;
+   private int tiempoEfecto;
    
    // Constructor
    public Arquero(Texture tex, Sound ss) 
@@ -32,43 +32,51 @@ public class Arquero
 	   arquero = new Sprite(imagenArquero);
    }
    
-   
+   	// Retorna las vidas del arquero.
 	public int getVidas() 
 	{
 		return vidas;
 	}
 
+	// Retorna los puntos del arquero.
 	public int getPuntos() 
 	{
 		return puntos;
 	}
+	
+	// Retorna el area del arquero
 	public Rectangle getArea() 
 	{
 		return arquero.getBoundingRectangle();
 	}
+	
+	// Suma puntos al arquero
 	public void sumarPuntos(int pp) 
 	{
 		puntos+=pp;
 	}
 	
+	// Resta puntos al arquero
 	public void restarPuntos(int pp) 
 	{
 		puntos-=pp;
 	}
 	
-   public void crear() 
-   {
-      arquero.setCenterX(800 / 2 - 64 / 2);
-      arquero.setY(20);
-   }
+	// Setea al arquero en el centro de la pantalla.
+    public void crear() 
+    {
+       arquero.setCenterX(800 / 2 - 64 / 2);
+       arquero.setY(20);
+    }
    
    // Se aturde al arquero.
    public void aturdir() 
    {
 	  aturdido = true;
-	  tiempoAturdido = tiempoAturdidoMax;
+	  tiempoEfecto = tiempoEfectoMax;
    }
    
+   // Se buffea al arquero
    public void buffear(float percent)
    {
 	   // No se puede meter doble buff
@@ -76,19 +84,24 @@ public class Arquero
 	   {
 		   buffed = true;
 		   velx = velx * percent;
-		   tiempoAturdido = tiempoAturdidoMax;
+		   tiempoEfecto = tiempoEfectoMax;
 	   }
    }
    
+   // Se debuffea al arquero
    public void debuff()
    {
-	   // Se reinicia la velocidad a la normal si le entra un debuff
+	   /*
+	    *  No se puede tener un doble debuff.
+	    *  Se reinicia la velocidad a la normal si le entra un debuff
+	    *  para evitar que la velocidad se vuelva irregular.
+	    */
 	   if (debuffed == false)
 	   {
-		   debuffed = true;
 		   velx = 400;
-		   velx = velx * 0.5f;
-		   tiempoAturdido = tiempoAturdidoMax;
+		   velx = velx * 0.7f;
+		   tiempoEfecto = tiempoEfectoMax;
+		   debuffed = true;
 	   }
    }
    
@@ -112,16 +125,19 @@ public class Arquero
 	 {
 	   arquero.setX(arquero.getX()+MathUtils.random(-5,5));
 	   arquero.draw(batch);
-	   tiempoAturdido--;
-	   if (tiempoAturdido<=0) 
+	   tiempoEfecto--;
+	   if (tiempoEfecto<=0) 
 	   {
 		   aturdido = false;
 	   }
 	 }
-	 else if (buffed == true)
+	 
+	 // Se verifica si el arquero tiene algún efecto.
+	 if (buffed == true)
 	 {
-		 tiempoAturdido--;
-		 if (tiempoAturdido<=0) 
+		 tiempoEfecto--;
+		 // Si ya paso el tiempo de efecto se vuelve a la velocidad original.
+		 if (tiempoEfecto<=0) 
 		 {
 			 velx = 400;
 			 buffed= false;
@@ -129,8 +145,9 @@ public class Arquero
 	 }		
 	 else
 	 {
-		 tiempoAturdido--;
-		 if (tiempoAturdido<=0) 
+		 tiempoEfecto--;
+		 // Si ya paso el tiempo de efecto se vuelve a la velocidad original.
+		 if (tiempoEfecto<=0) 
 		 {
 			 velx = 400;
 			 debuffed= false;

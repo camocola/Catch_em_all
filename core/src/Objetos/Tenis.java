@@ -27,7 +27,7 @@ public class Tenis extends Balon
 	@Override
 	public void effect(Arquero gk) 
 	{
-		gk.buffear(2f);
+		gk.buffear(2.0f);
 	}
 	
 }

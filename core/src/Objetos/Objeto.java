@@ -12,6 +12,7 @@ public abstract class Objeto implements Colisionable
 	private Texture image;
 	private Rectangle r;
 	
+	// Constructor
 	public Objeto (Sound s, Texture i)
 	{
 		catchSound = s;
@@ -19,6 +20,7 @@ public abstract class Objeto implements Colisionable
 	}
 	
 	@Override
+	// Verifica que el objeto no salga de la pantalla
 	public boolean outOfBounds()
 	{
 		if (r.y + 64 < 0)
@@ -28,13 +30,16 @@ public abstract class Objeto implements Colisionable
 		return false;
 	}
 	
+	// La cantidad de puntos que suma cada objeto.
 	public abstract void points(Arquero gk);
 	
+	// Reproduce el sonido al atrapar el objeto.
 	public void playSound ()
 	{
 		catchSound.play();
 	}
 	
+	// Dibuja el objeto.
 	public void drawImage(SpriteBatch batch)
 	{
 		/*Se dibuja el item en una posicion aleatoria a lo largo del eje x
@@ -43,6 +48,8 @@ public abstract class Objeto implements Colisionable
 		batch.draw(image, r.x, r.y);
 	}
 	
+	@Override
+	// Revisa si el objeto esta en colision con el arquero.
 	public boolean checkColision(Arquero gk)
 	{
 		if (r.overlaps(gk.getArea()) == true)
@@ -52,6 +59,7 @@ public abstract class Objeto implements Colisionable
 		return false;
 	}
 	
+	// Inicia las dimensiones del objeto.
 	public void setDimensions(float w, float h)
 	{
 		r = new Rectangle();
@@ -61,6 +69,7 @@ public abstract class Objeto implements Colisionable
 		r.height = h;
 	}
 	
+	// Retorna el rectangulo
 	public Rectangle getR()
 	{
 		return r;

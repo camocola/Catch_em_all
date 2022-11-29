@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -6,17 +6,22 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.GameLluviaMenu;
 
 
-public class MainMenuScreen implements Screen {
+public class PausaScreen implements Screen 
+{
 
-	final GameLluviaMenu game;
-	private SpriteBatch batch;
+	private final GameLluviaMenu game;
+	private GameScreen juego;
+	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private OrthographicCamera camera;
 
-	public MainMenuScreen(final GameLluviaMenu game) {
+	public PausaScreen (final GameLluviaMenu game, GameScreen juego) 
+	{
 		this.game = game;
+        this.juego = juego;
         this.batch = game.getBatch();
         this.font = game.getFont();
 		camera = new OrthographicCamera();
@@ -26,65 +31,58 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void render(float delta) 
 	{
-		ScreenUtils.clear(0, 0, 0.2f, 1);
+		ScreenUtils.clear(0, 0, 1.0f, 0.5f);
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.getData().setScale(2, 2);
-		font.draw(batch, "Bienvenido a Catch 'em all!!! ", 100, camera.viewportHeight/2+50);
-		font.draw(batch, "Toca en cualquier lugar para comenzar!", 100, camera.viewportHeight/2-50);
-
+		font.draw(batch, "Juego en Pausa ", 100, 150);
+		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 100);
 		batch.end();
 
 		if (Gdx.input.isTouched()) 
 		{
-			game.setScreen(new GameScreen(game));
+			game.setScreen(juego);
 			dispose();
 		}
-		
 	}
 
 	@Override
-	public void show() 
-	{
+	public void show() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void resize(int width, int height) 
-	{
+	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void pause() 
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void resume() 
-	{
+	public void pause() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void hide() 
-	{
+	public void resume() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void dispose() 
-	{
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
 		// TODO Auto-generated method stub
 		
 	}
 
 }
+

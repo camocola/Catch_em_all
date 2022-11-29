@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,10 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.GameLluviaMenu;
+import com.mygdx.game.ItemManager;
+
+import Objetos.Arquero;
 
 public class GameScreen implements Screen 
 {
-	final GameLluviaMenu game;
+	private final GameLluviaMenu game;
     private OrthographicCamera camera;
 	private SpriteBatch batch;	   
 	private BitmapFont font;

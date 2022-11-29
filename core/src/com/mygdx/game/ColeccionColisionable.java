@@ -12,8 +12,8 @@ import Objetos.Colisionable;
 
 public class ColeccionColisionable 
 {
-	private Array<Colisionable> objectPos;
 	private static ColeccionColisionable c;
+	private Array<Colisionable> objectPos;
 	private long lastDropTime;
 	private Texture bengala;
     private Sound FWsound;
@@ -28,40 +28,40 @@ public class ColeccionColisionable
 	// Crea distintos tipos de objetos de manera aleatoria
 	public void createObject() 
 	{
-	      int r = MathUtils.random(1,5);
-	      BallFactory f = BallFactory.getFactory();
-	      switch(r)
-	      {
-	      	case 1:
-	      	{
-	      		objectPos.add(f.createSoccer());
-	      		break;
-	      	}
-	      	case 2:
-	      	{
-		      	Bengala obj = new Bengala(FWsound, bengala, 200, 200);
-	      		obj.setDimensions(30f, 30f);
-	      		objectPos.add(obj);
-	      		break;
-	      	}
-	      	case 3:
-	      	{
-	      		objectPos.add(f.createBasquet());
-	      		break;
-	      	}
-	      	case 4:
-	      	{
-	      		objectPos.add(f.createTenis());
-	      		break;
-	      	}
-	      	case 5:
-	      	{
-	      		objectPos.add(f.createBowl());
-	      		break;
-	      	}
-	      }
+		int r = MathUtils.random(1,5);
+		BallFactory f = BallFactory.getFactory();
+		switch(r)
+		{
+      		case 1:
+      		{
+      		    objectPos.add(f.createSoccer());
+      			break;
+      		}
+      		case 2:
+      		{
+      			Bengala obj = new Bengala(FWsound, bengala, 200, 200);
+      			obj.setDimensions(30f, 30f);
+      			objectPos.add(obj);
+      			break;
+      		}
+      		case 3:
+      		{
+      			objectPos.add(f.createBasquet());
+      			break;
+      		}
+      		case 4:
+      		{
+      			objectPos.add(f.createTenis());
+      			break;
+      		}
+      		case 5:
+      		{
+      			objectPos.add(f.createBowl());
+      			break;
+      		}
+		}
 	      
-	      lastDropTime = TimeUtils.nanoTime();
+		lastDropTime = TimeUtils.nanoTime();
 	}
 	
 	// Elimina los objetos del arreglo.

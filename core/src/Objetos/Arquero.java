@@ -17,12 +17,12 @@ public class Arquero
    private Sound abucheo;
    private int vidas = 3;
    private int puntos = 0;
-   private float velx = 400;
+   private float velx = 400f;
+   private int tiempoEfectoMax = 50;
+   private int tiempoEfecto;
    private boolean aturdido = false;
    private boolean buffed = false;
    private boolean debuffed = false;
-   private int tiempoEfectoMax = 50;
-   private int tiempoEfecto;
    
    // Constructor
    public Arquero(Texture tex, Sound ss) 

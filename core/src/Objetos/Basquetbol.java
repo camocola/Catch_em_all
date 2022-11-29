@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package Objetos;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,13 +14,19 @@ public class Basquetbol extends Balon {
 	@Override
 	public void onColision(Arquero gk) 
 	{
-		effect(gk);
+		points(gk);
 		playSound();
 	}
 	@Override
 	// Si el arquero atrapa la pelota suma 10 puntos
-	public void effect(Arquero gk) 
+	public void points(Arquero gk) 
 	{
 		gk.sumarPuntos(5);
+	}
+
+	@Override
+	public void effect(Arquero gk) 
+	{
+		gk.buffear(1.2f);
 	}
 }

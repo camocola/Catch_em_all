@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package Objetos;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,7 +28,7 @@ public abstract class Objeto implements Colisionable
 		return false;
 	}
 	
-	public abstract void effect(Arquero gk);
+	public abstract void points(Arquero gk);
 	
 	public void playSound ()
 	{

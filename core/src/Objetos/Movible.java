@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package Objetos;
 
 public interface Movible 
 {

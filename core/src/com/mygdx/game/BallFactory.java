@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
+import Objetos.Basquetbol;
+import Objetos.Bolos;
+import Objetos.Futbol;
+import Objetos.Tenis;
+
 public class BallFactory implements AbstractFactory
 {
 	private static BallFactory b;

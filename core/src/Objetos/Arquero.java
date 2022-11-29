@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package Objetos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -17,10 +17,12 @@ public class Arquero
    private Sound abucheo;
    private int vidas = 3;
    private int puntos = 0;
-   private int velx = 400;
+   private float velx = 400;
    private boolean aturdido = false;
-   private int tiempoHeridoMax = 50;
-   private int tiempoHerido;
+   private boolean buffed = false;
+   private boolean debuffed = false;
+   private int tiempoAturdidoMax = 50;
+   private int tiempoAturdido;
    
    // Constructor
    public Arquero(Texture tex, Sound ss) 
@@ -64,7 +66,30 @@ public class Arquero
    public void aturdir() 
    {
 	  aturdido = true;
-	  tiempoHerido = tiempoHeridoMax;
+	  tiempoAturdido = tiempoAturdidoMax;
+   }
+   
+   public void buffear(float percent)
+   {
+	   // No se puede meter doble buff
+	   if (buffed == true)
+	   {
+		   buffed = true;
+		   velx = velx * percent;
+		   tiempoAturdido = tiempoAturdidoMax;
+	   }
+   }
+   
+   public void debuff()
+   {
+	   // Se reinicia la velocidad a la normal si le entra un debuff
+	   if (debuffed == false)
+	   {
+		   debuffed = true;
+		   velx = 400;
+		   velx = velx * 0.5f;
+		   tiempoAturdido = tiempoAturdidoMax;
+	   }
    }
    
    // Se reproduce sonido de abucheo y se le resta una vida.
@@ -83,15 +108,33 @@ public class Arquero
 		 arquero.draw(batch);
 	 }
 	 // Se hace el efecto de wiggle
-	 else 
+	 else if (aturdido == true)
 	 {
 	   arquero.setX(arquero.getX()+MathUtils.random(-5,5));
 	   arquero.draw(batch);
-	   tiempoHerido--;
-	   if (tiempoHerido<=0) 
+	   tiempoAturdido--;
+	   if (tiempoAturdido<=0) 
 	   {
 		   aturdido = false;
 	   }
+	 }
+	 else if (buffed == true)
+	 {
+		 tiempoAturdido--;
+		 if (tiempoAturdido<=0) 
+		 {
+			 velx = 400;
+			 buffed= false;
+		 }	
+	 }		
+	 else
+	 {
+		 tiempoAturdido--;
+		 if (tiempoAturdido<=0) 
+		 {
+			 velx = 400;
+			 debuffed= false;
+		 }
 	 }
    } 
    

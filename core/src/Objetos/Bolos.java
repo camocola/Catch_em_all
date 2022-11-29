@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package Objetos;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,11 +15,17 @@ public class Bolos extends Balon
 	@Override
 	public void onColision(Arquero gk) 
 	{
-		effect(gk);
+		points(gk);
 		playSound();
 	}
 
 	//Se aturde al arquero
+	@Override
+	public void points(Arquero gk) 
+	{
+		gk.restarPuntos(10);
+	}
+
 	@Override
 	public void effect(Arquero gk) 
 	{

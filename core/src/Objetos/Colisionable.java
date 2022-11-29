@@ -1,6 +1,6 @@
-package com.mygdx.game;
+package Objetos;
 
-public interface Colisionable extends Movible
+public interface Colisionable extends Movible, Effect
 {
 	// Verifica si el arquero colisiona con algun objeto.
 	boolean checkColision(Arquero gk);

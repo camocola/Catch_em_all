@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package Objetos;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,15 +16,21 @@ public class Bengala extends Proyectiles
 	// 
 	public void onColision(Arquero gk) 
 	{
-		effect(gk);
+		points(gk);
 	}
 
 	@Override
 	// Si atrapa una bengala el arquero, este pierde 25 puntos
-	public void effect(Arquero gk) 
+	public void points(Arquero gk) 
 	{
 		playSound();
 		gk.restarPuntos(25);
+	}
+
+	@Override
+	public void effect(Arquero gk) 
+	{
+		gk.debuff();		
 	}
 
 }

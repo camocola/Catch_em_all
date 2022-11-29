@@ -10,12 +10,6 @@ public class Tenis extends Balon
 		super(s,i,vY);
 	}
 	
-	@Override
-	public void onColision(Arquero gk) 
-	{
-		points(gk);
-		playSound();
-	}
 
 	@Override
 	//Si el arquero atrapa la pelota suma 15 puntos

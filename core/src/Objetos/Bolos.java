@@ -12,13 +12,6 @@ public class Bolos extends Balon
 		super(s, i, vY);
 	}
 
-	@Override
-	public void onColision(Arquero gk) 
-	{
-		points(gk);
-		playSound();
-	}
-
 	//Se aturde al arquero
 	@Override
 	public void points(Arquero gk) 

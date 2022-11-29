@@ -12,12 +12,6 @@ public class Basquetbol extends Balon {
 	}
 
 	@Override
-	public void onColision(Arquero gk) 
-	{
-		points(gk);
-		playSound();
-	}
-	@Override
 	// Si el arquero atrapa la pelota suma 10 puntos
 	public void points(Arquero gk) 
 	{

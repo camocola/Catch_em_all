@@ -21,4 +21,17 @@ public abstract class Balon extends Objeto
 		r.y -= velY * Gdx.graphics.getDeltaTime();
 	}
 	
+	@Override
+	/*
+	 * Todos los balones colisionan y al impactar ganan una
+	 * cierta cantidad de puntos, el cual cada subclase
+	 * lo implementa a su manera, por otro lado cada
+	 * objeto reproduce un sonido propio al ser atrapados.
+	 */
+	public void onColision(Arquero gk) 
+	{
+		points(gk);
+		effect(gk);
+		playSound();
+	}
 }

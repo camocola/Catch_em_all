@@ -1,66 +1,28 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import Objetos.Bengala;
 import Objetos.Colisionable;
+import factories.AbstractFactory;
 
 public class ColeccionColisionable 
 {
 	private static ColeccionColisionable c;
 	private Array<Colisionable> objectPos;
 	private long lastDropTime;
-	private Texture bengala;
-    private Sound FWsound;
 	
 	private ColeccionColisionable()
 	{
 		objectPos = new Array<Colisionable>();
-		this.bengala = new Texture(Gdx.files.internal("bengala.png"));
-		this.FWsound = Gdx.audio.newSound(Gdx.files.internal("fuegoArtificial.wav"));
 	}
+	
 	
 	// Crea distintos tipos de objetos de manera aleatoria
 	public void createObject() 
 	{
-		int r = MathUtils.random(1,5);
-		BallFactory f = BallFactory.getFactory();
-		switch(r)
-		{
-      		case 1:
-      		{
-      		    objectPos.add(f.createSoccer());
-      			break;
-      		}
-      		case 2:
-      		{
-      			Bengala obj = new Bengala(FWsound, bengala, 200, 200);
-      			obj.setDimensions(30f, 30f);
-      			objectPos.add(obj);
-      			break;
-      		}
-      		case 3:
-      		{
-      			objectPos.add(f.createBasquet());
-      			break;
-      		}
-      		case 4:
-      		{
-      			objectPos.add(f.createTenis());
-      			break;
-      		}
-      		case 5:
-      		{
-      			objectPos.add(f.createBowl());
-      			break;
-      		}
-		}
-	      
+		AbstractFactory f = new ObjectFactory() ;
+		objectPos.add(f.createObject());     
 		lastDropTime = TimeUtils.nanoTime();
 	}
 	
@@ -80,11 +42,13 @@ public class ColeccionColisionable
 		return objectPos.get(i);
 	}
 	
+	// Devuelve el tiempo en donde se generó el ultimpo objecto.
 	public long getDropTime()
 	{
 		return lastDropTime;
 	}
 	
+	// Devuelve la instancia de la clase (singleton).
 	public static ColeccionColisionable getInstance()
 	{
 		if (c == null)

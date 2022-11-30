@@ -16,7 +16,6 @@ import Objetos.Objeto;
 
 public class ItemManager
 {
-    private long lastDropTime;
     private Music stadiumMusic;
 	   
     // Se cargan todas las texturas y sonidos de los objetos.

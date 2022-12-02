@@ -12,12 +12,14 @@ import com.badlogic.gdx.utils.TimeUtils;
 import Objetos.Arquero;
 import Objetos.Bengala;
 import Objetos.Colisionable;
+import Objetos.Effect;
 import Objetos.Objeto;
 
 public class ItemManager
 {
     private Music stadiumMusic;
-	   
+	private Effect efecto;
+	
     // Se cargan todas las texturas y sonidos de los objetos.
 	public ItemManager() 
 	{
@@ -32,6 +34,18 @@ public class ItemManager
 	    stadiumMusic.setLooping(true);
 	    stadiumMusic.setVolume(0.1f);
 	    stadiumMusic.play();
+	}
+	
+	// La eL objeto implementa la interfaz efecto.
+	public void setEffect(Colisionable e)
+	{
+		efecto = (Effect)e;
+	}
+	
+	// Aplica el efecto del objeto
+	public void applyEffect(Arquero gk)
+	{
+		efecto.effect(gk);
 	}
 	
    // Se actualiza el movimiento del arquero
@@ -56,6 +70,8 @@ public class ItemManager
 		    */
 		   if (obj.checkColision(gk) == true)
 		   {
+			   setEffect(obj);
+			   applyEffect(gk);
 			   obj.onColision(gk);
 			   objectPos.deleteObj(i);
 		   }	

@@ -19,7 +19,7 @@ public class BengalaFactory implements AbstractFactory
     }
     
 	@Override
-	public Colisionable createObject() 
+	public Colisionable createColisionableObject() 
 	{
 		Bengala obj = new Bengala(FWsound, bengala, 200, 200);
 		obj.setDimensions(30f, 30f);

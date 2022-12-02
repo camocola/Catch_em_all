@@ -9,9 +9,9 @@ import factories.BolosFactory;
 import factories.FutbolFactory;
 import factories.TenisFactory;
 
-public class ObjectFactory implements AbstractFactory
+public class ObjectFactory
 {	
-	public Colisionable createObject()
+	public Colisionable createColisionableObject()
 	{
 		int r = MathUtils.random(1,5);
 		AbstractFactory a = null;
@@ -43,6 +43,6 @@ public class ObjectFactory implements AbstractFactory
 				break;
 			}
 		}
-		return a.createObject();
+		return a.createColisionableObject();
 	}	
 }

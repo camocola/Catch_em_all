@@ -19,7 +19,7 @@ public class BolosFactory implements AbstractFactory
     }
 
 	@Override
-	public Colisionable createObject() 
+	public Colisionable createColisionableObject() 
 	{
 		Bolos obj = new Bolos(bonk, bolos, 400);
   		obj.setDimensions(80f, 80f);

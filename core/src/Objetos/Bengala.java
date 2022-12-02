@@ -13,18 +13,9 @@ public class Bengala extends Proyectiles
 	}
 
 	@Override
-	// 
-	public void onColision(Arquero gk) 
-	{
-		points(gk);
-	}
-
-	@Override
 	// Si atrapa una bengala el arquero, este pierde 25 puntos
 	public void points(Arquero gk) 
 	{
-		playSound();
-		effect(gk);
 		gk.restarPuntos(25);
 	}
 

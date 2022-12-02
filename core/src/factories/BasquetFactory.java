@@ -18,7 +18,7 @@ public class BasquetFactory implements AbstractFactory
     	this.basquetBall = new Texture(Gdx.files.internal("basquetBall.png"));
     }
 	@Override
-	public Colisionable createObject() 
+	public Colisionable createColisionableObject() 
 	{
 		Basquetbol obj = new Basquetbol(BBsound, basquetBall, 200);
   		obj.setDimensions(70f, 70f);

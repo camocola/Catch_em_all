@@ -21,8 +21,8 @@ public class ColeccionColisionable
 	// Crea distintos tipos de objetos de manera aleatoria
 	public void createObject() 
 	{
-		AbstractFactory f = new ObjectFactory() ;
-		objectPos.add(f.createObject());     
+		ObjectFactory of = new ObjectFactory();
+		objectPos.add(of.createColisionableObject());     
 		lastDropTime = TimeUtils.nanoTime();
 	}
 	

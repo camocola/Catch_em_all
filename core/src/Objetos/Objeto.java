@@ -11,7 +11,6 @@ public abstract class Objeto implements Colisionable
 	private Sound catchSound;
 	private Texture image;
 	private Rectangle r;
-	
 	// Constructor
 	public Objeto (Sound s, Texture i)
 	{
@@ -29,7 +28,7 @@ public abstract class Objeto implements Colisionable
 		}
 		return false;
 	}
-	
+
 	// La cantidad de puntos que suma cada objeto.
 	public abstract void points(Arquero gk);
 	
@@ -75,5 +74,17 @@ public abstract class Objeto implements Colisionable
 		return r;
 	}
 	
+	@Override
+	/*
+	 * Todos los objetos colisionan y al impactar ganan una
+	 * cierta cantidad de puntos, el cual cada subclase
+	 * lo implementa a su manera, por otro lado cada
+	 * objeto reproduce un sonido propio al ser atrapados.
+	 */
+	public void onColision(Arquero gk) 
+	{
+		points(gk);
+		playSound();
+	}
 }
  

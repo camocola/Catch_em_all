@@ -18,7 +18,7 @@ public class FutbolFactory implements AbstractFactory
     	this.soccerBall = new Texture(Gdx.files.internal("drop.png"));
 	}
 	@Override
-	public Colisionable createObject() 
+	public Colisionable createColisionableObject() 
 	{
 		Futbol obj = new Futbol(Fsound, soccerBall, 200);
   		obj.setDimensions(60f, 60f);

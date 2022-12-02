@@ -18,7 +18,7 @@ public class TenisFactory implements AbstractFactory
 		this.tenis = new Texture(Gdx.files.internal("tenis.png"));
     }
 	@Override
-	public Colisionable createObject() 
+	public Colisionable createColisionableObject() 
 	{
 		Tenis obj = new Tenis(Tsound, tenis, 200);
   		obj.setDimensions(40f, 40f);

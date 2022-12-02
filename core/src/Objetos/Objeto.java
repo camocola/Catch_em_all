@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
-public abstract class Objeto implements Colisionable
+public abstract class Objeto implements Colisionable, Effect
 {
 	private Sound catchSound;
 	private Texture image;

@@ -37,7 +37,7 @@ public class ItemManager
 	}
 	
 	// La eL objeto implementa la interfaz efecto.
-	public void setEffect(Colisionable e)
+	public void setEffect(Objeto e)
 	{
 		efecto = (Effect)e;
 	}
@@ -70,7 +70,7 @@ public class ItemManager
 		    */
 		   if (obj.checkColision(gk) == true)
 		   {
-			   setEffect(obj);
+			   setEffect((Objeto)obj);
 			   applyEffect(gk);
 			   obj.onColision(gk);
 			   objectPos.deleteObj(i);

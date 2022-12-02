@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public abstract class Proyectiles extends Objeto
+public abstract class Proyectiles extends Objeto 
 {
 	private int velX;
 	private int velY;

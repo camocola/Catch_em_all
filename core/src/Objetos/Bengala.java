@@ -4,7 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Bengala extends Proyectiles
+public class Bengala extends Proyectiles implements Effect
 {
 
 	public Bengala(Sound s, Texture i, int vX, int vY) 

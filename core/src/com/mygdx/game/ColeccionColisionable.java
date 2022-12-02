@@ -4,7 +4,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import Objetos.Colisionable;
-import factories.AbstractFactory;
 
 public class ColeccionColisionable 
 {

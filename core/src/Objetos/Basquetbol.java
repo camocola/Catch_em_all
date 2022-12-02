@@ -4,7 +4,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Basquetbol extends Balon {
+public class Basquetbol extends Balon implements Effect 
+{
 	
 	public Basquetbol(Sound s, Texture i, int vY) 
 	{

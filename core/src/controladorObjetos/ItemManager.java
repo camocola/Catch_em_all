@@ -1,16 +1,11 @@
-package com.mygdx.game;
+package controladorObjetos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import Objetos.Arquero;
-import Objetos.Bengala;
 import Objetos.Colisionable;
 import Objetos.Effect;
 import Objetos.Objeto;

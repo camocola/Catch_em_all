@@ -1,10 +1,8 @@
-package com.mygdx.game;
+package screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import screen.MainMenuScreen;
 
 	public class GameLluviaMenu extends Game {
 

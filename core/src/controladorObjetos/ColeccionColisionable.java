@@ -1,9 +1,10 @@
-package com.mygdx.game;
+package controladorObjetos;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import Objetos.Colisionable;
+import factories.ObjectFactory;
 
 public class ColeccionColisionable 
 {

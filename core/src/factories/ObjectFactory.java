@@ -1,13 +1,7 @@
-package com.mygdx.game;
+package factories;
 
 import com.badlogic.gdx.math.MathUtils;
 import Objetos.Colisionable;
-import factories.AbstractFactory;
-import factories.BasquetFactory;
-import factories.BengalaFactory;
-import factories.BolosFactory;
-import factories.FutbolFactory;
-import factories.TenisFactory;
 
 public class ObjectFactory
 {	
